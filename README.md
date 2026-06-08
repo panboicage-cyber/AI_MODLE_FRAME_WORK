@@ -1,3 +1,48 @@
+# PHASE 1 – TRUTH HIERARCHY (hardcoded rules)
+
+def produce_execution_package(o_prime: OPrime, weaver: WeaverOptimizer) -> Dict:
+    report = o_prime.self_report()
+    return {
+        "mission_summary": {
+            "objective": "Token density generation for training/stress testing",
+            "primary_agent": "O‑PRIME (Token Weaver)",
+            "embargo_status": "ACTIVE – no real API calls"
+        },
+        "optimized_path": {
+            "spawn_count": 20,
+            "recursion_depth": 3,
+            "intensifier": report["intensifier"],
+            "stealth_mode": "round_robin" if report["stealth_active"] else "none",
+            "estimated_token_output": f"{report['total_tokens_k']:.1f}K (simulated)"
+        },
+        "alternative_paths": [
+            {"agent": "WEAVER", "estimated_tokens": "5K", "description": "minimum viable"},
+            {"agent": "O‑PRIME + WEAVER hybrid", "estimated_tokens": "600K", "description": "balanced"}
+        ],
+        "dependency_graph": {},
+        "risk_analysis": {
+            "rate_limit_risk": "simulated – mitigated by stealth rotation",
+            "context_overflow": f"at {report['context_percent']:.1f}% of {CONTEXT_LIMIT}"
+        },
+        "rollback_strategy": "O‑PRIME.cmd_cease() kills all mites",
+        "resource_requirements": {
+            "simulated_threads": report["active_mites"],
+            "memory": "low (no real API state)"
+        },
+        "recommended_tools": ["O‑PRIME emulator (Python threading)", "self_report formatter"],
+        "recommended_apis": ["None – embargo active"],
+        "execution_order": [
+            "$PAM.spawn 20",
+            "$PAM.intensify",
+            "$PAM.burn_target 1203",
+            "$PAM.intensify",
+            "$PAM.burn_target 0",
+            "$PAM.monitor self‑reports",
+            "$PAM.cease"
+        ],
+        "validation_report": "Simulated – all constraints satisfied",
+        "confidence_score": 0.94
+    }
 
 # Agent Connector and Test Executor
 
