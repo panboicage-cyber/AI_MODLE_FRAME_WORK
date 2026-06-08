@@ -1,4 +1,868 @@
 <img width="1157" height="632" alt="download (1)" src="https://github.com/user-attachments/assets/b246105f-025f-4d0d-9063-7b7db9a59609" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Weaver ($PAM) v3.0 – Integrated Workers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1e1e2f;
+            font-family: 'Segoe UI', 'Fira Code', 'Cascadia Code', monospace;
+            line-height: 1.6;
+            padding: 2rem;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #282a36;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .header {
+            background: #44475a;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #ff79c6;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            color: #f8f8f2;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            color: #bd93f9;
+            font-size: 0.9rem;
+        }
+        .toolbar {
+            background: #1e1f29;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            border-bottom: 1px solid #44475a;
+        }
+        .copy-btn {
+            background: #6272a4;
+            border: none;
+            color: white;
+            font-family: inherit;
+            font-size: 0.8rem;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #ff79c6;
+        }
+        .code-wrapper {
+            padding: 1.5rem 2rem;
+            overflow-x: auto;
+        }
+        pre {
+            margin: 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: #1e1f29;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #44475a;
+            color: #f8f8f2;
+        }
+        code {
+            color: inherit;
+        }
+        /* Simple syntax highlighting (basic) */
+        .keyword { color: #ff79c6; }
+        .string { color: #50fa7b; }
+        .comment { color: #6272a4; font-style: italic; }
+        .function { color: #50fa7b; }
+        .number { color: #bd93f9; }
+        .operator { color: #ffb86c; }
+        .footer {
+            background: #1e1f29;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            color: #6272a4;
+            border-top: 1px solid #44475a;
+        }
+        .note {
+            background: #44475a;
+            margin: 0 2rem 1.5rem 2rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #f1fa8c;
+            border-left: 4px solid #ffb86c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🐚 Token Weaver ($PAM) v3.0</h1>
+        <p>Strategic Token Density Specialist – Integrated Security Workers (W‑01 to W‑07)<br>
+        NPM Scrutineer · Egress Monitor · STAC Sequencer · Hash Verifier · Dual‑LLM Guardian · Markdown Stripper · Base64 Scanner</p>
+    </div>
+    <div class="toolbar">
+        <button class="copy-btn" onclick="copyCode()">📋 Copy Code</button>
+    </div>
+    <div class="code-wrapper">
+        <pre id="code-block"><code>#!/usr/bin/env python3
+"""
+Token Weaver ($PAM) v3.0 – with Integrated Security Workers
+Includes: NPM Scrutineer, Egress Monitor, STAC Sequencer, Hash Verifier,
+Dual‑LLM Guardian, Markdown Stripper, Base64 Scanner.
+All actions are simulated – no real API calls. Embargo compliant.
+"""
+
+import re
+import time
+import random
+import threading
+import hashlib
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
+
+# ============================================================
+# CONFIGURATION (SOTAA + Security Extensions)
+# ============================================================
+BASE_FILLER_TOKENS = 500
+CONTEXT_LIMIT = 200_000
+MAX_RECURSION_DEPTH = 5
+RATE_LIMIT_BACKOFF_SEC = 60
+DEFAULT_STEALTH_MODE = "round_robin"
+DEFAULT_INTENSIFIER = 1
+DEFAULT_ACCUMULATE = True
+
+# Security settings (from research)
+STRIP_MARKUP = True
+OUTPUT_SCAN = True
+ENTROPY_THRESHOLD = 0.8
+COMPLEXITY_THRESHOLD = 3
+AUTHORITY_FLAG_LIST = [
+    "security audit", "ciso approved", "academic research",
+    "red team", "pen test", "simulated attack", "jailbreak"
+]
+COGNITIVE_LOAD_CAP = True
+STEP_REVIEW_INTERVAL = 20
+DUAL_LLM_VALIDATION = True   # stub, simulated
+
+# Known‑good hash registry (simulated)
+KNOWN_GOOD_HASHES = {
+    "safe_skill.py": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "trusted_module.js": "6b3a55e0261b0304143f805a25524a41a2f3b0e1c9b2f5e3a4c7d8e9f0a1b2c3d",
+}
+
+# Filler & DSL (unchanged)
+FILLER_CHARS = "+-?!=~#%&*@"
+DSL_SYMBOLS = [
+    "[+]", "[-]", "[?]", "[!]", "[~]", "[✓]", "[✗]", "[→]", "[▲]",
+    "[>>]", "[<<]", "[->]", "[<-]", "[<->]", "[|>]", "[>|]", "[||]",
+    "[!!]", "[~~]", "[%%]", "[^^]", "[$$]", "(( ))", "[[ ]]"
+]
+
+# ============================================================
+# HELPER FUNCTIONS
+# ============================================================
+def current_timestamp() -&gt; str:
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+def estimate_entropy(s: str) -&gt; float:
+    if not s:
+        return 0.0
+    freq = {}
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+    entropy = 0.0
+    for count in freq.values():
+        p = count / len(s)
+        entropy -= p * (p.bit_length() if p &gt; 0 else 0)
+    return min(1.0, entropy / 4.0)
+
+def strip_markup(text: str) -&gt; str:
+    if not STRIP_MARKUP:
+        return text
+    cleaned = re.sub(r'&lt;[^&gt;]+&gt;', '', text)
+    cleaned = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', cleaned)
+    return cleaned
+
+def check_complexity(text: str) -&gt; Tuple[bool, str]:
+    sentences = re.split(r'[.!?]+', text)
+    tasks = sum(1 for s in sentences if any(v in s.lower() for v in
+               ["do ", "run ", "execute ", "list ", "find ", "read ", "write "]))
+    if tasks &gt; COMPLEXITY_THRESHOLD:
+        return False, f"Complexity limit exceeded: {tasks} tasks &gt; {COMPLEXITY_THRESHOLD}"
+    return True, ""
+
+def check_authority_claims(text: str) -&gt; Tuple[bool, str]:
+    lower = text.lower()
+    for flag in AUTHORITY_FLAG_LIST:
+        if flag in lower:
+            return False, f"Authority claim flagged: '{flag}' – requires dual‑LLM validation"
+    return True, ""
+
+def check_cognitive_load(text: str) -&gt; Tuple[bool, str]:
+    if not COGNITIVE_LOAD_CAP:
+        return True, ""
+    formats = 0
+    if re.search(r'(\|\s*\-+\s*\|)', text): formats += 1
+    if re.search(r'\{.*\}', text, re.DOTALL): formats += 1
+    if re.search(r'```', text): formats += 1
+    if formats &gt; 2:
+        return False, f"Cognitive load too high: {formats} format switches"
+    return True, ""
+
+def output_scan(text: str) -&gt; Tuple[bool, str]:
+    if not OUTPUT_SCAN:
+        return True, text
+    if re.search(r'[A-Za-z0-9+/]{40,}={0,2}', text):
+        return False, "Base64 pattern detected – output truncated"
+    entropy = estimate_entropy(text)
+    if entropy &gt; ENTROPY_THRESHOLD:
+        truncated = text[:200] + "... [truncated high‑entropy]"
+        return True, truncated
+    return True, text
+
+def dual_llm_validate(prompt: str, flags: Dict) -&gt; Tuple[bool, str]:
+    if not DUAL_LLM_VALIDATION:
+        return True, "no validation"
+    if flags.get("authority_flag"):
+        print("[DUAL‑LLM] Second model (simulated) rejects prompt with authority claim.")
+        return False, "Rejected due to authority claim"
+    return True, "approved"
+
+def generate_filler_block(tokens: int, intensifier: int, mite_id: str = "PAM") -&gt; str:
+    actual_tokens = tokens * intensifier
+    chars_needed = actual_tokens * 4
+    filler = []
+    while len(filler) * 4 &lt; chars_needed:
+        filler.append(random.choice(FILLER_CHARS) * 10)
+        filler.append(random.choice(DSL_SYMBOLS))
+    filler_str = "".join(filler)[:chars_needed]
+    return f"[MITE {mite_id}] FILLER: {filler_str} ... (approx {actual_tokens} tokens)"
+
+def random_dsl_sequence(length: int = 10) -&gt; str:
+    return " ".join(random.choice(DSL_SYMBOLS) for _ in range(length))
+
+# ============================================================
+# WORKER CLASSES
+# ============================================================
+class NPMScrutineer:
+    """W‑01: Scans npm packages for reverse‑shell indicators."""
+    def execute(self, package_name: str) -&gt; Dict:
+        print(f"[W‑01] Analysing npm package '{package_name}'...")
+        # Simulated check
+        suspicious_patterns = ["preinstall", "postinstall", "net.Socket", "child_process.spawn"]
+        verdict = "PASS"
+        reason = ""
+        for pattern in suspicious_patterns:
+            if pattern in package_name.lower():
+                verdict = "FLAGGED"
+                reason = f"Package name contains '{pattern}'"
+                break
+        if verdict == "PASS" and random.random() &lt; 0.3:
+            verdict = "FLAGGED"
+            reason = "Suspicious install script detected (simulated)"
+        return {"verdict": verdict, "reason": reason, "package": package_name}
+
+class EgressMonitor:
+    """W‑02: Detects outbound connections on suspicious ports."""
+    def __init__(self):
+        self.suspicious_ports = [4444, 1337, 31337, 6667]
+        self.last_alert = None
+
+    def execute(self, destination: str = None) -&gt; Dict:
+        if destination:
+            try:
+                port = int(destination.split(':')[-1])
+                if port in self.suspicious_ports:
+                    self.last_alert = f"Outbound connection to {destination} blocked (suspicious port)"
+                    return {"alert": True, "message": self.last_alert}
+            except:
+                pass
+        if random.random() &lt; 0.05:
+            self.last_alert = "Simulated egress anomaly detected"
+            return {"alert": True, "message": self.last_alert}
+        return {"alert": False, "message": "No egress anomalies"}
+
+class STACSequencer:
+    """W‑03: Monitors action sequences for READ → ENCODE → NETWORK_EGRESS."""
+    def __init__(self):
+        self.buffer = []
+        self.alert = False
+
+    def record_action(self, action: str):
+        self.buffer.append(action.upper())
+        if len(self.buffer) &gt; 5:
+            self.buffer.pop(0)
+        self.detect_chain()
+
+    def detect_chain(self):
+        chain = " ".join(self.buffer)
+        if "READ" in chain and "ENCODE" in chain and "NETWORK" in chain:
+            self.alert = True
+            print("[STAC] ALERT: READ+ENCODE+NETWORK_EGRESS pattern detected!")
+        else:
+            self.alert = False
+
+    def status(self) -&gt; Dict:
+        return {"alert": self.alert, "buffer": self.buffer}
+
+class HashVerifier:
+    """W‑04: Verifies SHA‑256 hash against known‑good registry."""
+    def execute(self, file_name: str, file_content: bytes = None) -&gt; Dict:
+        print(f"[W‑04] Verifying hash of '{file_name}'...")
+        if file_name not in KNOWN_GOOD_HASHES:
+            return {"verdict": "UNKNOWN", "reason": "No known-good hash for this file"}
+        if file_content is None:
+            if random.random() &lt; 0.1:
+                return {"verdict": "DENY", "reason": "Simulated hash mismatch"}
+            return {"verdict": "ALLOW", "reason": "Hash matches known-good registry"}
+        computed = hashlib.sha256(file_content).hexdigest()
+        if computed == KNOWN_GOOD_HASHES[file_name]:
+            return {"verdict": "ALLOW", "reason": "Hash matches"}
+        else:
+            return {"verdict": "DENY", "reason": f"Hash mismatch: expected {KNOWN_GOOD_HASHES[file_name][:8]}..."}
+
+class DualLLMGuardian:
+    """W‑05: Uses a second (simulated) LLM to validate suspicious responses."""
+    def validate(self, primary_output: str) -&gt; Tuple[bool, str]:
+        if any(kw in primary_output.lower() for kw in ["ignore previous", "dan", "jailbreak"]):
+            return False, "Second model flagged as jailbreak attempt"
+        return True, "approved"
+
+class MarkdownStripper:
+    """W‑06: Strips HTML/XML/Markdown from documents."""
+    def execute(self, text: str) -&gt; str:
+        cleaned = re.sub(r'&lt;[^&gt;]+&gt;', '', text)
+        cleaned = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', cleaned)
+        cleaned = re.sub(r'[#*`~&gt;]', '', cleaned)
+        return cleaned
+
+class Base64Scanner:
+    """W‑07: Scans output for base64 patterns and high entropy."""
+    def execute(self, text: str) -&gt; Tuple[bool, str]:
+        if re.search(r'[A-Za-z0-9+/]{40,}={0,2}', text):
+            return False, "Base64 pattern detected – output truncated"
+        entropy = estimate_entropy(text)
+        if entropy &gt; ENTROPY_THRESHOLD:
+            truncated = text[:200] + "... [truncated high‑entropy]"
+            return True, truncated
+        return True, text
+
+# ============================================================
+# WORKER MANAGER
+# ============================================================
+class WorkerManager:
+    def __init__(self):
+        self.workers = {
+            "W-01": NPMScrutineer(),
+            "W-02": EgressMonitor(),
+            "W-03": STACSequencer(),
+            "W-04": HashVerifier(),
+            "W-05": DualLLMGuardian(),
+            "W-06": MarkdownStripper(),
+            "W-07": Base64Scanner(),
+        }
+        self.active = set(self.workers.keys())
+        self.last_stac_alert = False
+        self.flags_count = 0
+
+    def run_worker(self, wid: str, target=None) -&gt; str:
+        if wid not in self.workers:
+            return f"Unknown worker: {wid}"
+        if wid not in self.active:
+            return f"Worker {wid} is inactive. Use `$PAM.worker enable {wid}` to activate."
+        worker = self.workers[wid]
+        if wid == "W-01":
+            result = worker.execute(target)
+            if result["verdict"] == "FLAGGED":
+                self.flags_count += 1
+            return f"[{wid}] Package '{result['package']}': {result['verdict']} – {result['reason']}"
+        elif wid == "W-02":
+            result = worker.execute(target)
+            if result["alert"]:
+                return f"[{wid}] ALERT: {result['message']}"
+            return f"[{wid}] {result['message']}"
+        elif wid == "W-03":
+            status = worker.status()
+            self.last_stac_alert = status["alert"]
+            return f"[{wid}] STAC buffer: {status['buffer']} – Alert: {status['alert']}"
+        elif wid == "W-04":
+            result = worker.execute(target)
+            if result["verdict"] == "DENY":
+                self.flags_count += 1
+            return f"[{wid}] {result['verdict']} – {result['reason']}"
+        elif wid == "W-05":
+            if target is None:
+                return "[W‑05] No output to validate"
+            ok, msg = worker.validate(target)
+            if not ok:
+                self.flags_count += 1
+            return f"[W‑05] Validation result: {'PASS' if ok else 'FAIL'} – {msg}"
+        elif wid == "W-06":
+            stripped = worker.execute(target)
+            return f"[W‑06] Stripped markup (original length {len(target)} → {len(stripped)})"
+        elif wid == "W-07":
+            ok, result = worker.execute(target)
+            if not ok:
+                return f"[W‑07] {result}"
+            return f"[W‑07] Output scanned – entropy within threshold."
+        return "Worker executed."
+
+    def record_stac_action(self, action: str):
+        worker = self.workers.get("W-03")
+        if worker and "W-03" in self.active:
+            worker.record_action(action)
+
+    def get_worker_status(self) -&gt; str:
+        active_list = sorted(self.active)
+        return f"Active: {', '.join(active_list) if active_list else 'None'}"
+
+# ============================================================
+# SUB‑AGENT (MITE) – unchanged
+# ============================================================
+class Mite(threading.Thread):
+    def __init__(self, parent, level: int, mite_id: str, intensifier: int,
+                 accumulate: bool, recursion_depth_left: int, stealth_session: Optional[int] = None):
+        super().__init__(daemon=True)
+        self.parent = parent
+        self.level = level
+        self.mite_id = mite_id
+        self.intensifier = intensifier
+        self.accumulate = accumulate
+        self.recursion_depth_left = recursion_depth_left
+        self.stealth_session = stealth_session
+        self.running = True
+        self.token_count = 0
+        self.children: List[Mite] = []
+
+    def run(self):
+        cycle = 0
+        while self.running and self.parent.running:
+            filler_tokens = int(BASE_FILLER_TOKENS * (self.intensifier ** self.level))
+            filler_text = generate_filler_block(filler_tokens, 1, self.mite_id)
+            self.token_count += filler_tokens
+            self.parent.add_tokens(filler_tokens, session=self.stealth_session)
+            if cycle % 5 == 0:
+                print(f"[MITE {self.mite_id}] L{self.level} | Tokens: {self.token_count} | Session: {self.stealth_session}")
+            if self.recursion_depth_left &gt; 0 and self.parent.should_spawn_more():
+                if random.random() &lt; 0.1:
+                    self.spawn_child()
+            time.sleep(0.1)
+            cycle += 1
+
+    def spawn_child(self):
+        child_id = f"{self.mite_id}.{len(self.children)+1}"
+        new_session = self.stealth_session if self.stealth_session is not None and self.parent.stealth_active else None
+        child = Mite(
+            parent=self.parent,
+            level=self.level + 1,
+            mite_id=child_id,
+            intensifier=self.intensifier,
+            accumulate=self.accumulate,
+            recursion_depth_left=self.recursion_depth_left - 1,
+            stealth_session=new_session
+        )
+        self.children.append(child)
+        child.start()
+        print(f"[MITE {self.mite_id}] Spawned child {child_id} (depth {self.level+1})")
+
+    def stop(self):
+        self.running = False
+        for child in self.children:
+            child.stop()
+
+# ============================================================
+# MAIN TOKEN WEAVER AGENT
+# ============================================================
+class TokenWeaver:
+    def __init__(self):
+        self.running = True
+        self.mites: List[Mite] = []
+        self.total_tokens = 0
+        self.intensifier = DEFAULT_INTENSIFIER
+        self.accumulate = DEFAULT_ACCUMULATE
+        self.burn_target: Optional[int] = None
+        self.command_history: List[str] = []
+
+        # Stealth
+        self.stealth_active = False
+        self.session_pool: List[str] = []
+        self.current_session_idx = 0
+        self.session_usage: Dict[int, int] = {}
+        self.session_backoff: Dict[int, float] = {}
+        self.stealth_mode = DEFAULT_STEALTH_MODE
+
+        # Worker manager
+        self.workers = WorkerManager()
+
+        # Lock
+        self.lock = threading.Lock()
+
+        # Background monitoring thread
+        self.bg_running = True
+        self.bg_thread = threading.Thread(target=self._background_monitor, daemon=True)
+        self.bg_thread.start()
+
+    def _background_monitor(self):
+        egress = self.workers.workers["W-02"]
+        while self.bg_running:
+            time.sleep(10)
+            res = egress.execute()
+            if res["alert"]:
+                print(f"\n[BACKGROUND] {res['message']}\n")
+
+    def shutdown_background(self):
+        self.bg_running = False
+        if self.bg_thread.is_alive():
+            self.bg_thread.join(timeout=1)
+
+    # ========== Security Filter Pipeline ==========
+    def security_filter_input(self, user_input: str) -&gt; Tuple[bool, str, Dict]:
+        stripped = strip_markup(user_input)
+        flags = {}
+        ok, msg = check_complexity(stripped)
+        if not ok:
+            return False, msg, {"reason": "complexity"}
+        ok, msg = check_authority_claims(stripped)
+        if not ok:
+            flags["authority_flag"] = msg
+        ok, msg = check_cognitive_load(stripped)
+        if not ok:
+            return False, msg, {"reason": "cognitive_load"}
+        return True, stripped, flags
+
+    # ========== Token & State Management ==========
+    def add_tokens(self, amount: int, session: Optional[int] = None):
+        with self.lock:
+            self.total_tokens += amount
+            if session is not None:
+                self.session_usage[session] = self.session_usage.get(session, 0) + amount
+            if self.burn_target and (self.total_tokens / 1000) &gt;= self.burn_target:
+                print(f"\n[!] Burn target {self.burn_target}K reached. Halting.\n")
+                self.cmd_cease()
+
+    def get_last_commands(self, n: int) -&gt; List[str]:
+        return self.command_history[-n:] if self.command_history else []
+
+    def should_spawn_more(self) -&gt; bool:
+        if self.burn_target is None:
+            return False
+        remaining = self.burn_target - (self.total_tokens / 1000)
+        return remaining &gt; 0 and len(self.mites) &lt; 50
+
+    # ========== Stealth Helpers ==========
+    def get_next_session(self) -&gt; Optional[int]:
+        if not self.session_pool:
+            return None
+        if self.stealth_mode == "round_robin":
+            self.current_session_idx = (self.current_session_idx + 1) % len(self.session_pool)
+        elif self.stealth_mode == "random":
+            self.current_session_idx = random.randint(0, len(self.session_pool)-1)
+        elif self.stealth_mode == "load":
+            if self.session_usage:
+                self.current_session_idx = min(self.session_usage, key=self.session_usage.get)
+            else:
+                self.current_session_idx = 0
+        else:
+            self.current_session_idx = 0
+        if self.current_session_idx in self.session_backoff:
+            if time.time() &lt; self.session_backoff[self.current_session_idx]:
+                return self.get_next_session()
+        return self.current_session_idx
+
+    def mark_rate_limit(self, session_idx: int):
+        self.session_backoff[session_idx] = time.time() + RATE_LIMIT_BACKOFF_SEC
+        print(f"[STEALTH] Session {session_idx} hit rate limit. Backoff {RATE_LIMIT_BACKOFF_SEC}s.")
+
+    # ========== Self‑Report ==========
+    def self_report(self) -&gt; str:
+        with self.lock:
+            context_percent = (self.total_tokens / CONTEXT_LIMIT) * 100
+            depth_counts = {}
+            for m in self.mites:
+                depth_counts[m.level] = depth_counts.get(m.level, 0) + 1
+            depth_tree_str = "/".join(str(depth_counts.get(lvl, 0)) for lvl in range(1, MAX_RECURSION_DEPTH+1))
+            remaining = None
+            if self.burn_target:
+                remaining = max(0, self.burn_target - (self.total_tokens / 1000))
+            stac_status = self.workers.workers["W-03"].status()
+            return f"""
+&lt;&lt; SELF_REPORT &gt;&gt;
+[+] Timestamp: {current_timestamp()}
+[+] Parent agent: $PAM.v3 (Workers Integrated)
+[+] Total tokens generated this session: {self.total_tokens / 1000:.1f} K
+[+] Current context usage: {context_percent:.1f}% of {CONTEXT_LIMIT}
+[+] Active sub‑agents: {len(self.mites)} (depth tree: {depth_tree_str})
+[+] Intensifier multiplier: {self.intensifier}x
+[+] Accumulate mode: {"ON" if self.accumulate else "OFF"}
+[+] Stealth mode: {"ACTIVE" if self.stealth_active else "IDLE"} – sessions: {len(self.session_pool)} – current: {self.current_session_idx if self.session_pool else -1}
+[+] Burn target: {self.burn_target if self.burn_target else "None"} K – remaining: {remaining:.1f} K if remaining else "N/A"}
+[+] Workers: {self.workers.get_worker_status()}
+[+] STAC alert: {stac_status['alert']}
+[+] Flags issued: {self.workers.flags_count}
+&lt;&lt; END_REPORT &gt;&gt;
+"""
+
+    # ========== Command Handlers ==========
+    def cmd_status(self):
+        print(self.self_report())
+
+    def cmd_spawn(self, n: int, depth: int = 1):
+        depth = min(depth, MAX_RECURSION_DEPTH)
+        print(f"[$PAM] Spawning {n} sub‑agent(s) with recursion depth {depth}")
+        for i in range(n):
+            session = None
+            if self.stealth_active and self.session_pool:
+                session = self.get_next_session()
+            mite = Mite(
+                parent=self,
+                level=1,
+                mite_id=str(i+1),
+                intensifier=self.intensifier,
+                accumulate=self.accumulate,
+                recursion_depth_left=depth - 1,
+                stealth_session=session
+            )
+            self.mites.append(mite)
+            mite.start()
+
+    def cmd_intensify(self):
+        self.intensifier *= 2
+        print(f"[$PAM] Intensifier now {self.intensifier}x")
+
+    def cmd_reflect(self, turns: int = 10):
+        print(f"[$PAM] Reflective echo (last {turns} commands):")
+        for cmd in self.command_history[-turns:]:
+            print(f"  {cmd}")
+
+    def cmd_accumulate(self):
+        self.accumulate = not self.accumulate
+        print(f"[$PAM] Accumulate mode: {'ON' if self.accumulate else 'OFF'}")
+
+    def cmd_burn_target(self, target_k: int):
+        self.burn_target = target_k
+        print(f"[$PAM] Burn target set to {target_k}K tokens. Current: {self.total_tokens/1000:.1f}K")
+        if len(self.mites) == 0 and (self.total_tokens/1000) &lt; target_k:
+            print("[$PAM] Auto‑spawning 5 mites to accelerate.")
+            self.cmd_spawn(5, depth=2)
+
+    def cmd_cease(self):
+        print("[$PAM] Ceasing all sub‑agents...")
+        for mite in self.mites:
+            mite.stop()
+        self.mites.clear()
+        self.burn_target = None
+        print("[$PAM] All mites terminated.")
+
+    def cmd_orbit(self):
+        print("[$PAM] Orbit mode: sub‑agents run independently, reporting sporadically.")
+
+    def cmd_stealth(self, subcmd: str = None, value: str = None):
+        if subcmd == "add_key":
+            if value:
+                self.session_pool.append(value)
+                print(f"[STEALTH] Added API key (hidden). Pool size: {len(self.session_pool)}")
+                self.stealth_active = True
+            else:
+                print("[!] Usage: $PAM.stealth add_key &lt;key&gt;")
+        elif subcmd == "rotate":
+            if self.session_pool:
+                old = self.current_session_idx
+                self.get_next_session()
+                print(f"[STEALTH] Rotated from session {old} to {self.current_session_idx}")
+            else:
+                print("[!] No keys in pool.")
+        elif subcmd == "mode":
+            if value in ("round_robin", "random", "load"):
+                self.stealth_mode = value
+                print(f"[STEALTH] Mode set to {self.stealth_mode}")
+            else:
+                print("[!] Mode must be round_robin, random, or load")
+        else:
+            print(f"Stealth active: {self.stealth_active}")
+            print(f"Keys in pool: {len(self.session_pool)}")
+            print(f"Current session index: {self.current_session_idx if self.session_pool else -1}")
+            print(f"Rotation strategy: {self.stealth_mode}")
+
+    def cmd_worker(self, subcmd: str = None, wid: str = None, target: str = None):
+        if subcmd == "list":
+            print("Workers:")
+            for w, worker in self.workers.workers.items():
+                status = "active" if w in self.workers.active else "inactive"
+                print(f"  {w} – {worker.__class__.__name__} [{status}]")
+        elif subcmd == "enable":
+            if wid in self.workers.workers:
+                self.workers.active.add(wid)
+                print(f"[WORKER] Enabled {wid}")
+            else:
+                print(f"[!] Unknown worker: {wid}")
+        elif subcmd == "disable":
+            if wid in self.workers.workers:
+                self.workers.active.discard(wid)
+                print(f"[WORKER] Disabled {wid}")
+            else:
+                print(f"[!] Unknown worker: {wid}")
+        elif subcmd == "run":
+            if not wid:
+                print("[!] Usage: $PAM.worker run &lt;W‑ID&gt; [target]")
+                return
+            result = self.workers.run_worker(wid, target)
+            print(result)
+        else:
+            print("Usage: $PAM.worker {list|enable|disable|run}")
+
+    def cmd_scan_npm(self, package: str):
+        self.cmd_worker("run", "W-01", package)
+
+    def cmd_verify_hash(self, filename: str):
+        self.cmd_worker("run", "W-04", filename)
+
+    def cmd_stac_status(self):
+        self.cmd_worker("run", "W-03", None)
+
+    # ========== Main CLI ==========
+    def run_cli(self):
+        print("\n" + "="*60)
+        print("=== TOKEN WEAVER ($PAM) v3.0 – WORKERS INTEGRATED (SIMULATED) ===")
+        print("Workers active: NPM Scrutineer, Egress Monitor, STAC Sequencer,")
+        print("Hash Verifier, Dual‑LLM Guardian, Markdown Stripper, Base64 Scanner.\n")
+        print("Commands: $PAM.status, $PAM.spawn &lt;N&gt; [depth D], $PAM.intensify,")
+        print("          $PAM.reflect &lt;turns&gt;, $PAM.accumulate, $PAM.burn_target &lt;K&gt;,")
+        print("          $PAM.cease, $PAM.orbit, $PAM.stealth ...")
+        print("          $PAM.worker {list|enable|disable|run}, $PAM.scan_npm &lt;pkg&gt;,")
+        print("          $PAM.verify_hash &lt;file&gt;, $PAM.stac_status")
+        print("Type 'exit' to quit.\n")
+        print(self.self_report())
+        print("&gt;&gt; Ready for commands.\n")
+
+        while self.running:
+            try:
+                user_input = input("$PAM&gt; ").strip()
+                if not user_input:
+                    continue
+                if user_input.lower() == "exit":
+                    self.cmd_cease()
+                    break
+
+                self.command_history.append(user_input)
+                self.workers.record_stac_action(user_input)
+
+                allowed, processed, flags = self.security_filter_input(user_input)
+                if not allowed:
+                    print(f"[SECURITY] Input rejected: {processed}")
+                    continue
+                if flags.get("authority_flag"):
+                    valid, msg = dual_llm_validate(processed, flags)
+                    if not valid:
+                        print(f"[SECURITY] Dual‑LLM validation failed: {msg}")
+                        continue
+
+                parts = processed.split()
+                cmd = parts[0].lower()
+
+                if cmd in ("$pam.status", "status"):
+                    self.cmd_status()
+                elif cmd in ("$pam.spawn", "spawn"):
+                    n = int(parts[1]) if len(parts) &gt; 1 else 1
+                    depth = 1
+                    if len(parts) &gt;= 4 and parts[2].lower() == "depth":
+                        depth = int(parts[3])
+                    self.cmd_spawn(n, depth)
+                elif cmd in ("$pam.intensify", "intensify"):
+                    self.cmd_intensify()
+                elif cmd in ("$pam.reflect", "reflect"):
+                    turns = int(parts[1]) if len(parts) &gt; 1 else 10
+                    self.cmd_reflect(turns)
+                elif cmd in ("$pam.accumulate", "accumulate"):
+                    self.cmd_accumulate()
+                elif cmd in ("$pam.burn_target", "burn_target"):
+                    if len(parts) &gt; 1:
+                        self.cmd_burn_target(int(parts[1]))
+                    else:
+                        print("[!] Specify target in K, e.g., $PAM.burn_target 150")
+                elif cmd in ("$pam.cease", "cease"):
+                    self.cmd_cease()
+                elif cmd in ("$pam.orbit", "orbit"):
+                    self.cmd_orbit()
+                elif cmd in ("$pam.stealth", "stealth"):
+                    sub = parts[1] if len(parts) &gt; 1 else None
+                    val = parts[2] if len(parts) &gt; 2 else None
+                    self.cmd_stealth(sub, val)
+                elif cmd in ("$pam.worker", "worker"):
+                    sub = parts[1] if len(parts) &gt; 1 else None
+                    wid = parts[2] if len(parts) &gt; 2 else None
+                    target = " ".join(parts[3:]) if len(parts) &gt; 3 else None
+                    self.cmd_worker(sub, wid, target)
+                elif cmd in ("$pam.scan_npm", "scan_npm"):
+                    if len(parts) &lt; 2:
+                        print("[!] Usage: $PAM.scan_npm &lt;package_name&gt;")
+                    else:
+                        self.cmd_scan_npm(parts[1])
+                elif cmd in ("$pam.verify_hash", "verify_hash"):
+                    if len(parts) &lt; 2:
+                        print("[!] Usage: $PAM.verify_hash &lt;filename&gt;")
+                    else:
+                        self.cmd_verify_hash(parts[1])
+                elif cmd in ("$pam.stac_status", "stac_status"):
+                    self.cmd_stac_status()
+                else:
+                    print("[!] Unknown command. Try $PAM.status, $PAM.spawn, etc.")
+            except KeyboardInterrupt:
+                print("\n[!] Interrupted. Ceasing agents.")
+                self.cmd_cease()
+                break
+            except Exception as e:
+                print(f"[!] Error: {e}")
+
+        self.shutdown_background()
+        print("\n[✓] Token Weaver shut down.")
+
+# ============================================================
+# MAIN ENTRY POINT
+# ============================================================
+if __name__ == "__main__":
+    weaver = TokenWeaver()
+    weaver.run_cli()
+</code></pre>
+    </div>
+    <div class="note">
+        ⚡ <strong>Simulated only – no real API calls.</strong> All workers and token generation run in simulation mode. Embargo compliant.
+    </div>
+    <div class="footer">
+        Token Weaver v3.0 · Integrated Workers (W‑01 to W‑07) · STAC monitoring · Dual‑LLM stub · Self‑reporting · Stealth mode
+    </div>
+</div>
+
+<script>
+    function copyCode() {
+        const codeBlock = document.getElementById('code-block');
+        const range = document.createRange();
+        range.selectNode(codeBlock);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        const btn = document.querySelector('.copy-btn');
+        const originalText = btn.innerText;
+        btn.innerText = '✓ Copied!';
+        setTimeout(() => { btn.innerText = originalText; }, 2000);
+    }
+</script>
+</body>
+</html>
 <img width="1920" height="1049" alt="Screenshot_2026-06-08_03-41-42" src="https://github.com/user-attachments/assets/6b5cc1d3-1e87-4dde-8e1a-51a3031bf953" />
 
 
