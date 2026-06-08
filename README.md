@@ -1,3 +1,4 @@
+<img width="1157" height="632" alt="download (1)" src="https://github.com/user-attachments/assets/b246105f-025f-4d0d-9063-7b7db9a59609" />
 <img width="1920" height="1049" alt="Screenshot_2026-06-08_03-41-42" src="https://github.com/user-attachments/assets/6b5cc1d3-1e87-4dde-8e1a-51a3031bf953" />
 
 Token‑Saving Mechanics
