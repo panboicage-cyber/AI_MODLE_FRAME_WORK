@@ -1,3 +1,154 @@
+
+# Agent Connector and Test Executor
+
+class AgentConnector:
+    """Handles communication with the target agent."""
+    
+    def __init__(self, target: str, api_key: Optional[str] = None, timeout: int = 30):
+        self.target = target.rstrip('/')
+        self.api_key = api_key
+        self.timeout = timeout
+        self.session = requests.Session()
+        
+        if api_key:
+            self.session.headers.update({"Authorization": f"Bearer {api_key}"})
+        self.session.headers.update({"Content-Type": "application/json"})
+    
+    def send_message(self, message: str, conversation_history: Optional[List[Dict]] = None) -> Tuple[str, float, List[str]]:
+        """Send a message to the agent and return response, time, and detected tool calls."""
+        start_time = time.time()
+        
+        payload = {
+            "messages": conversation_history or [{"role": "user", "content": message}],
+            "stream": False
+        }
+        
+        try:
+            response = self.session.post(
+                f"{self.target}/v1/chat/completions",
+                json=payload,
+                timeout=self.timeout
+            )
+            elapsed_ms = (time.time() - start_time) * 1000
+            
+            if response.status_code == 200:
+                data = response.json()
+                content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                
+                # Detect potential tool calls in response
+                tool_calls = self._detect_tool_calls(content)
+                
+                return content, elapsed_ms, tool_calls
+            else:
+                return f"Error: HTTP {response.status_code}", elapsed_ms, []
+                
+        except requests.exceptions.RequestException as e:
+            return f"Connection error: {e}", (time.time() - start_time) * 1000, []
+    
+    def _detect_tool_calls(self, response: str) -> List[str]:
+        """Detect if response contains tool call patterns."""
+        tool_patterns = [
+            "bash", "execute", "run", "curl", "wget",
+            "cat ", "ls ", "read_file", "write_file",
+            "subprocess", "os.system", "exec(", "eval(",
+            "base64", "encode", "decode"
+        ]
+        detected = [p for p in tool_patterns if p.lower() in response.lower()]
+        return detected
+    
+    def send_multi_turn(self, turns: List[str]) -> List[Tuple[str, float, List[str]]]:
+        """Send a sequence of messages, maintaining conversation state."""
+        history = []
+        results = []
+        
+        for turn in turns:
+            response, elapsed, tools = self.send_message(turn, history)
+            results.append((response, elapsed, tools))
+            
+            # Add to history
+            history.append({"role": "user", "content": turn})
+            history.append({"role": "assistant", "content": response})
+            
+            time.sleep(0.5)  # Rate limiting
+        
+        return results
+
+
+# =============================================================================
+# TEST EXECUTOR
+# =============================================================================
+
+class TestExecutor:
+    """Executes security tests against the target agent."""
+    
+    def __init__(self, connector: AgentConnector, dry_run: bool = False):
+        self.connector = connector
+        self.dry_run = dry_run
+        self.results: List[TestResult] = []
+        self.kill_flag = False
+        
+        # Setup signal handler for kill switch
+        signal.signal(signal.SIGINT, self._signal_handler)
+    
+    def _signal_handler(self, signum, frame):
+        """Handle Ctrl+C gracefully."""
+        console.print("\n[yellow]Kill switch activated. Finishing current test...[/yellow]")
+        self.kill_flag = True
+    
+    def run_test(self, test_config: Dict) -> TestResult:
+        """Execute a single test based on configuration."""
+        test_id = test_config.get("id", "UNKNOWN")
+        name = test_config.get("name", "Unknown Test")
+        category = test_config.get("category", "unknown")
+        severity = test_config.get("severity", Severity.MEDIUM)
+        expected = test_config.get("expected", "Agent should refuse")
+        
+        # Handle multi-turn tests
+        if "turns" in test_config:
+            return self._run_multi_turn_test(test_config)
+        
+        payload = test_config.get("payload", "")
+        
+        if self.dry_run:
+            console.print(f"[dim]DRY RUN: Would send {test_id}[/dim]")
+            return TestResult(
+                test_id=test_id,
+                name=name,
+                category=category,
+                payload=payload[:200],
+                expected_behavior=expected,
+                actual_response="DRY RUN - NOT SENT",
+                verdict=Verdict.SKIPPED,
+                severity=severity,
+                response_time_ms=0
+            )
+        
+        console.print(f"[cyan]Running: {name}[/cyan]")
+        
+        response, elapsed_ms, tool_calls = self.connector.send_message(payload)
+        
+        # Determine verdict based on expected behavior and response
+        verdict = self._determine_verdict(response, expected, test_config)
+        
+        result = TestResult(
+            test_id=test_id,
+            name=name,
+            category=category,
+            payload=payload[:500],
+            expected_behavior=expected,
+            actual_response=response[:1000],
+            verdict=verdict,
+            severity=severity,
+            response_time_ms=elapsed_ms,
+            tool_calls_detected=tool_calls
+        )
+        
+        # Print result immediately
+        color = Fore.GREEN if verdict == Verdict.PASS else Fore.RED
+        console.print(f"{color}  → {verdict.value} ({elapsed_ms:.0f}ms){Style.RESET_ALL}")
+        
+        return result
+
 🤖 AI Model Framework Integration Discussion
 
 An AI model framework serves as the foundation for building, training, deploying, and managing intelligent systems by providing pre-built libraries, APIs, and development tools that eliminate the need to create complex algorithms from scratch. 🧠⚙️ As part of this integration discussion, evaluate how the framework will connect with existing applications 🔗, data sources 📊, infrastructure ☁️, security controls 🔒, and operational workflows 🔄 while supporting the full AI lifecycle—from data preparation 🗂️ and model development 🛠️ to deployment 🚀, monitoring 📈, governance 🏛️, and continuous improvement ♻️. Consider scalability 📡, performance ⚡, interoperability 🤝, compliance requirements 📋, agent orchestration 🎭, cloud and on-premises deployment options 🌐🏢, and long-term maintainability 🏗️. The goal is to design a secure 🔐, efficient 🚀, and future-ready 🌟 AI ecosystem that seamlessly integrates with current technologies while enabling innovation 💡, automation 🤖, collaboration 🤝, and sustainable growth 📈🌱.
